@@ -31,10 +31,10 @@ with open(filename, 'rb') as file:
 def predict(cv, job):
   diffYoe = cv['yoe'] - job['minYoE']
   results = {}
-  role_req_exp = cosine_similarity(st.encode(cv['experiences']), st.encode(job['role']+' '+job['jobDesc']))
-  role_pos = cosine_similarity(st.encode(cv['positions']), st.encode(job['role']))
-  major_similarity = cosine_similarity(st.encode(cv['userMajors']), st.encode(job['majors']))
-  skill_similarity = cosine_similarity(st.encode(cv['skills']), st.encode(job['skills']))
+  role_req_exp = cosine_similarity(st.encode(cv['experiences']).reshape(1,-1), st.encode(job['role']+'\n'+job['jobDesc']).reshape(1,-1))[0][0]
+  role_pos = cosine_similarity(st.encode(cv['positions']).reshape(1,-1), st.encode(job['role']).reshape(1,-1))[0][0]
+  major_similarity = cosine_similarity(st.encode(cv['userMajors']).reshape(1,-1), st.encode(job['majors']).reshape(1,-1))[0][0]
+  skill_similarity = cosine_similarity(st.encode(cv['skills']).reshape(1,-1), st.encode(job['skills']).reshape(1,-1))[0][0]
   score_yoe = 0.5 if diffYoe == -1 else (1 if diffYoe > 0 else 0)
   score = 0.35 * role_req_exp + 0.1 * role_pos  + 0.15 * major_similarity + 0.3* score_yoe + 0.1 * skill_similarity 
   X = np.array([role_req_exp, role_pos, major_similarity, skill_similarity, score]).reshape(1, -1)
