@@ -29,7 +29,7 @@ with open(filename, 'rb') as file:
 # }
 
 def predict(cv, job):
-  diffYoe = cv['yoe'] - job['minimumYoe']
+  diffYoe = cv['yoe'] - job['minYoE']
   results = {}
   role_req_exp = cosine_similarity(st.encode(cv['experiences']), st.encode(job['role']+' '+job['jobDesc']))
   role_pos = cosine_similarity(st.encode(cv['positions']), st.encode(job['role']))
