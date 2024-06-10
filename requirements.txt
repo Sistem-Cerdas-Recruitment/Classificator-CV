@@ -7,3 +7,4 @@ PyPDF2
 sentence_transformers
 scikit-learn
 numpy
+pandas

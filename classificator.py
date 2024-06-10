@@ -1,6 +1,7 @@
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import pandas as pd
 import pickle 
 st = SentenceTransformer('all-mpnet-base-v2')
 filename = 'svc.pkl'
@@ -37,7 +38,14 @@ def predict(cv, job):
   skill_similarity = cosine_similarity(st.encode(cv['skills']).reshape(1,-1), st.encode(job['skills']).reshape(1,-1))[0][0]
   score_yoe = 0.5 if diffYoe == -1 else (0 if diffYoe < 0 else 1)
   score = 0.35 * role_req_exp + 0.1 * role_pos  + 0.15 * major_similarity + 0.3* score_yoe + 0.1 * skill_similarity 
-  X = np.array([role_req_exp, role_pos, major_similarity, skill_similarity, score]).reshape(1, -1)
+  data = [{
+    'role_req-exp': role_req_exp,      
+    'role_pos': role_pos,            
+    'major_similarity':  major_similarity,  
+    'skill_similarity':  skill_similarity,
+    'score': score           
+  }]
+  X = pd.DataFrame.from_dict(data)
   res = model.predict(X)
   results['score'] = model.predict_proba(X)[:, 1]
   results['is_accepted'] = np.argmax(res) 
