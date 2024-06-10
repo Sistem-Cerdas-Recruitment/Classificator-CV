@@ -39,6 +39,6 @@ def predict(cv, job):
   score = 0.35 * role_req_exp + 0.1 * role_pos  + 0.15 * major_similarity + 0.3* score_yoe + 0.1 * skill_similarity 
   X = np.array([role_req_exp, role_pos, major_similarity, skill_similarity, score]).reshape(1, -1)
   res = model.predict(X)
-  results['score'] = model.predict(X)[:, 1]
+  results['score'] = model.predict_proba(X)[:, 1]
   results['is_accepted'] = np.argmax(res) 
   return results
