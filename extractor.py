@@ -68,8 +68,6 @@ def chunked_inference(text, tokenizer, model, max_length=512):
     tokens = tokenizer.tokenize(tok, is_split_into_words=True)
     # Initialize containers for tokenized inputs
     input_ids_chunks = []
-    # Decode and print each token
-    print(tokens)
     # Create chunks of tokens that fit within the model's maximum input size
     for i in range(0, len(tokens), max_length - 2):  # -2 accounts for special tokens [CLS] and [SEP]
         chunk = tokens[i:i + max_length - 2]
