@@ -111,7 +111,7 @@ def process_tokens(tokens, tag_prefix):
                 current_entity = {}
             current_entity['text'] = token
             current_entity['type'] = tag
-        elif tag.startswith('I-') and (tag.endswith('GPA') or tag.endswith('URL')) and current_entity:
+        elif tag.startswith('I-') and (('GPA') == tag_prefix or tag_prefix == ('URL')) and tag.endswith(tag_prefix) and current_entity:
             current_entity['text'] += '' + token
         elif tag.startswith('I-') and tag.endswith(tag_prefix) and current_entity:
             # Continue the current entity
@@ -139,7 +139,7 @@ def predict(text):
     for links in process_tokens(data, 'URL'):
       profile['links'].append(links['text'])
     # Process experiences and education
-    for designation, company, experience_desc in zip(process_tokens(data, 'DESIGNATION'),process_tokens(data, 'CAMPUS'),process_tokens(data, 'EXPERIENCES DESC') ):
+    for designation, company, experience_desc in zip(process_tokens(data, 'DESIGNATION'),process_tokens(data, 'COMPANY'),process_tokens(data, 'EXPERIENCES DESC') ):
         profile['experiences'].append({
             "start": None,
             "end": None,
