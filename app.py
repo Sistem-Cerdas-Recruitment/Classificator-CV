@@ -26,11 +26,12 @@ async def extract(text: InsertedText):
 
 
 @app.post("/classify", response_model=ClassificationResult)
-async def classify(body:JobAndCV ):
+async def classify(body:JobAndCV):
     mininmal_start = 0
     maximal_end = 0
     positions = []
     userMajors = []
+    yoe = 0
     if len(body.cv.experiences) > 0:
         mininmal_start = datetime.strptime(body.cv.experiences[0]['start'], "%Y-%m-%d").date() if body.cv.experiences[0].get('start') != None else datetime.today().date()
         maximal_end = datetime.strptime(body.cv.experiences[0]['end'], "%Y-%m-%d").date() if body.cv.experiences[0].get('end') != None else datetime.today().date()
@@ -42,14 +43,11 @@ async def classify(body:JobAndCV ):
                 mininmal_start = datetime.strptime(exp['start'], "%Y-%m-%d").date()
             if datetime.strptime(exp['end'], "%Y-%m-%d").date() > maximal_end:
                 maximal_end = datetime.strptime(exp['end'], "%Y-%m-%d").date()
-    else:
-        mininmal_start = 0
-        maximal_end = 0
+        yoe = (maximal_end - mininmal_start).days//365  
     
     for edu in body.cv.educations:
         userMajors.append(edu['major'])
     
-    yoe = (maximal_end - mininmal_start).days//365  
     cv = {
         "experiences": str(body.cv.experiences), 
         "positions": str(positions), 
