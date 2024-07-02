@@ -36,7 +36,7 @@ async def classify(body:JobAndCV):
         mininmal_start = datetime.strptime(body.cv.experiences[0]['start'], "%Y-%m-%d").date() if body.cv.experiences[0].get('start') != None else datetime.today().date()
         maximal_end = datetime.strptime(body.cv.experiences[0]['end'], "%Y-%m-%d").date() if body.cv.experiences[0].get('end') != None else datetime.today().date()
         for exp in body.cv.experiences:
-            positions.append(exp['designation'])
+            positions.append(exp['position'])
             if exp.get('end') == None:
                 exp['end'] = datetime.today().strftime("%Y-%m-%d")
             if datetime.strptime(exp['start'], "%Y-%m-%d").date() < mininmal_start:
