@@ -34,7 +34,7 @@ def predict(cv, job):
   results = {}
   role_req_exp = cosine_similarity(st.encode(cv['experiences']).reshape(1,-1), st.encode(job['role']+'\n'+job['jobDesc']).reshape(1,-1))[0][0] if cv['experiences'] != '[]' else 0
   role_pos = cosine_similarity(st.encode(cv['positions']).reshape(1,-1), st.encode(job['role']).reshape(1,-1))[0][0] if cv['positions'] != '[]' else 0
-  major_similarity = cosine_similarity(st.encode(cv['userMajors']).reshape(1,-1), st.encode(job['majors']).reshape(1,-1))[0][0] if cv['useMajors'] != '[]' else 0
+  major_similarity = cosine_similarity(st.encode(cv['userMajors']).reshape(1,-1), st.encode(job['majors']).reshape(1,-1))[0][0] if cv['userMajors'] != '[]' else 0
   skill_similarity = cosine_similarity(st.encode(cv['skills']).reshape(1,-1), st.encode(job['skills']).reshape(1,-1))[0][0] if cv['skills'] != '[]' else 0
   score_yoe = 0.5 if diffYoe == -1 else (0 if diffYoe < 0 else 1)
   score = 0.35 * role_req_exp + 0.1 * role_pos  + 0.15 * major_similarity + 0.3* score_yoe + 0.1 * skill_similarity 
