@@ -137,7 +137,7 @@ def predict(text):
     for links in process_tokens(data, 'URL'):
       profile['links'].append(links['text'])
     # Process experiences and education
-    for designation, company, experience_desc in zip((process_tokens(data, 'DESIGNATION')),(process_tokens(data, 'COMPANY')),(process_tokens(data, 'EXPERIENCES DESC'))):
+    for designation, company, experience_desc in zip(cycle(process_tokens(data, 'DESIGNATION')),cycle(process_tokens(data, 'COMPANY')),(process_tokens(data, 'EXPERIENCES DESC'))):
         profile['experiences'].append({
             "start": None,
             "end": None,
