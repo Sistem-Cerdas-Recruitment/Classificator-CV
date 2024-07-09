@@ -1,6 +1,7 @@
 from transformers import RobertaTokenizerFast, AutoModelForTokenClassification
 import re
 import torch
+from itertools import cycle
 
 tokenizer = RobertaTokenizerFast.from_pretrained("mrfirdauss/robert-base-finetuned-cv")
 model = AutoModelForTokenClassification.from_pretrained("mrfirdauss/robert-base-finetuned-cv")
