@@ -143,11 +143,11 @@ def predict(text):
     designation = process_tokens(data, 'DESIGNATION')
     comp = process_tokens(data, 'COMPANY')
     if len(exp) >= len (designation) and len(exp) >= len(comp):
-        workzip = zip(cycle(designation),cycle(company),exp)
+        workzip = zip(cycle(designation),cycle(comp),exp)
     elif len(designation)>=len(comp):
-        workzip = zip((designation),cycle(company),cycle(exp))
+        workzip = zip((designation),cycle(comp),cycle(exp))
     else:
-        workzip = zip(cycle(designation),(company),cycle(exp))
+        workzip = zip(cycle(designation),(comp),cycle(exp))
     for designation, company, experience_desc in workzip:
         profile['experiences'].append({
             "start": None,
