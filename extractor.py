@@ -138,7 +138,17 @@ def predict(text):
     for links in process_tokens(data, 'URL'):
       profile['links'].append(links['text'])
     # Process experiences and education
-    for designation, company, experience_desc in zip(cycle(process_tokens(data, 'DESIGNATION')),cycle(process_tokens(data, 'COMPANY')),(process_tokens(data, 'EXPERIENCES DESC'))):
+    workzip = []
+    exp = process_tokens(data, 'EXPERIENCES DESC')
+    designation = process_tokens(data, 'DESIGNATION')
+    comp = process_tokens(data, 'COMPANY')
+    if len(exp) >= len (designation) and len(exp) >= len(comp):
+        workzip = zip(cycle(designation),cycle(company),exp)
+    elif len(designation)>=len(comp):
+        workzip = zip((designation),cycle(company),cycle(exp))
+    else:
+        workzip = zip(cycle(designation),(company),cycle(exp))
+    for designation, company, experience_desc in workzip:
         profile['experiences'].append({
             "start": None,
             "end": None,
