@@ -48,5 +48,5 @@ def predict(cv, job):
   X = pd.DataFrame.from_dict(data)
   res = model.predict(X)
   results['score'] = model.predict_proba(X)[:, 1]
-  results['is_accepted'] = np.argmax(res) 
+  results['is_accepted'] = res[0]
   return results
