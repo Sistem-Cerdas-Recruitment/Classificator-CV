@@ -5,6 +5,9 @@ WORKDIR /
 RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
 ENV API_KEY=${API_KEY}
+ENV KAFKA_URL=${KAFKA_URL}
+ENV KAFKA_API_KEY=${KAFKA_API_KEY}
+ENV KAFKA_IP=${KAFKA_IP}
 
 ENV TRANSFORMERS_CACHE=/transformers_cache
 RUN mkdir -p  /transformers_cache && chmod -R 777  /transformers_cache
