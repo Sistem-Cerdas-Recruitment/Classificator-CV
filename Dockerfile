@@ -4,7 +4,6 @@ WORKDIR /
 
 RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
-ENV API_KEY=${API_KEY}
 ENV KAFKA_URL=${KAFKA_URL}
 ENV KAFKA_API_KEY=${KAFKA_API_KEY}
 ENV KAFKA_IP=${KAFKA_IP}
