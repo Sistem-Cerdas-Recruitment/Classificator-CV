@@ -1,12 +1,8 @@
 torch
-pydantic
-fastapi
 transformers
-uvicorn[standard]
-PyPDF2
-sentence_transformers
+sentence-transformers
 scikit-learn
-numpy
-pandas
 python-dotenv
 kafka-python
+pandas
+numpy

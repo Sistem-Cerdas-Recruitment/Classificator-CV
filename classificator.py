@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 import pandas as pd
 import pickle 
 st = SentenceTransformer('all-mpnet-base-v2')
